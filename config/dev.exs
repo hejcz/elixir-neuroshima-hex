@@ -7,7 +7,11 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :pubsubtest, PubsubtestWeb.Endpoint,
-  http: [port: 4000],
+  https: [
+    port: 4000,
+    keyfile: Path.expand("../dev.key", __DIR__),
+    certfile: Path.expand("../dev.crt", __DIR__)
+  ],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
