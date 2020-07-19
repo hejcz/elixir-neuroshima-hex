@@ -12,9 +12,10 @@ defmodule Pubsubtest.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Pubsubtest.PubSub},
       # Start the Endpoint (http/https)
-      PubsubtestWeb.Endpoint
+      PubsubtestWeb.Endpoint,
       # Start a worker by calling: Pubsubtest.Worker.start_link(arg)
-      # {Pubsubtest.Worker, arg}
+      # {Pubsubtest.Worker, arg},
+      {Pubsubtest.GameManager, name: Pubsubtest.GameManager}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
