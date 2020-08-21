@@ -19,6 +19,8 @@ defmodule PubsubtestWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/", PageController, :new_game
+    get "/tic-tac-toe/:game_id", TicTacToeController, :index
   end
 
   # Other scopes may use custom stacks.

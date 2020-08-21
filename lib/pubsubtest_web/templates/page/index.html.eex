@@ -1,7 +1,32 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Neuroshima" %></h1>
-  <p>Peace-of-mind from prototype to production</p>
-</section>
-
-<div id="messages" role="log" aria-live="polite"></div>
-<input id="chat-input" type="text"></input>
+<h1>Create game</h1>
+<%= form_for @conn, Routes.page_path(@conn, :index), [as: :game], fn f -> %>
+  <%= text_input f, :name %>
+  <%= select f, :type, [
+    [key: "Tic tac toe", value: "tic_tac_toe"],
+    [key: "Cartographers", value: "cartographers", disabled: true],
+    [key: "Neuroshima Hex", value: "neuroshima_hex", disabled: true]
+  ] %>
+  <%= submit "Create" %>
+<% end %>
+<h1>Join game</h1>
+<table>
+<%= for game <- @games do %>
+  <tr>
+    <td>
+      <%= for i <- 1..game.all_seats do %>
+        <%= if (i <= game.free_seats) do %>
+          <img class="free_seat" src="<%= Routes.static_path(@conn, "/images/free_seat.svg") %>" alt="Free seat"/>
+        <% else %>
+          <img class="taken_seat" src="<%= Routes.static_path(@conn, "/images/taken_seat.svg") %>" alt="Taken seat"/>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <%= String.capitalize(game.name) %>
+    </td>
+    <td>
+       <%= button("Join", method: :get, to: Pubsubtest.GameUrl.url_for_type(game.type, game.id)) %>
+    </td>
+  </tr>
+<% end %>
+</table>

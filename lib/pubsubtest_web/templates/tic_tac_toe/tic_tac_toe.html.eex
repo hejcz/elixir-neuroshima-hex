@@ -1,0 +1,13 @@
+<button id="start">Start</button>
+<button id="quit">Quit</button>
+
+<svg id="tic-tac-toe-svg" viewBox="0 0 100 100">
+    <line x1="33" x2="33" y1="0" y2="99"></line>
+    <line x1="66" x2="66" y1="0" y2="99"></line>
+    <line x1="0" x2="99" y1="33" y2="33"></line>
+    <line x1="0" x2="99" y1="66" y2="66"></line>
+</svg>
+
+<script>window.userToken = "<%= @token %>";</script>
+<script>window.gameId = "<%= @game_id %>";</script>
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/tictactoe.js") %>"></script>

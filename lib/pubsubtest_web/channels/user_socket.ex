@@ -4,22 +4,33 @@ defmodule PubsubtestWeb.UserSocket do
   ## Channels
   channel "room:*", PubsubtestWeb.RoomChannel
 
-  # Socket params are passed from the client and can
-  # be used to verify and authenticate a user. After
-  # verification, you can put default assigns into
-  # the socket that will be set for all channels, ie
-  #
-  #     {:ok, assign(socket, :user_id, verified_user_id)}
-  #
-  # To deny connection, return `:error`.
-  #
-  # See `Phoenix.Token` documentation for examples in
-  # performing token verification on connect.
   @impl true
-  @spec connect(any, any, any) :: {:ok, any}
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(_params = %{"token" => token}, socket, _connect_info) do
+    verified_token = Phoenix.Token.verify(socket, "salt", token)
+
+    case verified_token do
+      {:ok,
+       %{
+         "game_id" => game_id,
+         "player_id" => player_id,
+         "game_type" => game_type,
+         "game_pid" => game_pid
+       }} ->
+        {:ok,
+         socket
+         |> assign(
+           game_id: game_id,
+           player_id: player_id,
+           game_type: game_type,
+           game_pid: game_pid
+         )}
+
+      _ ->
+        :error
+    end
   end
+
+  def connect(_params, _socket, _connect_info), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
