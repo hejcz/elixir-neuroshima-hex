@@ -29,3 +29,49 @@
 .alert:empty {
   display: none;
 }
+
+.free_seat {
+  height: 16px;
+  width: 16px;
+  fill: green;
+}
+
+.taken_seat {
+  height: 16px;
+  width: 16px;
+  fill: red;
+}
+
+#game_name {
+  width: 50%;
+  margin-right: 2%;
+}
+
+#game_type {
+  width: 48%;
+}
+
+#tic-tac-toe-svg {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+}
+
+#tic-tac-toe-svg line {
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.winning {
+  stroke: limegreen !important;
+}
+
+#tic-tac-toe-svg rect {
+  fill: white;
+}
+
+#tic-tac-toe-svg circle {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}

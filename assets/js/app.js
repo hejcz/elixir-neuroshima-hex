@@ -11,4 +11,4 @@ import "../css/app.scss"
 
 import "phoenix_html"
 import {Socket} from "phoenix"
-import socket from "./socket"
+// import socket from "./socket"
