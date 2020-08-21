@@ -4,6 +4,8 @@ defmodule PubsubtestWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug PubsubtestWeb.AssignPlayerIdIfMissing
+    plug PubsubtestWeb.RedirectToGameInProgress
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
