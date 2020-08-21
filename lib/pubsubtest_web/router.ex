@@ -21,6 +21,7 @@ defmodule PubsubtestWeb.Router do
     get "/", PageController, :index
     post "/", PageController, :new_game
     get "/tic-tac-toe/:game_id", TicTacToeController, :index
+    get "/cartographers/:game_id", CartographersController, :index
   end
 
   # Other scopes may use custom stacks.

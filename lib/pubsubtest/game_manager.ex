@@ -99,4 +99,6 @@ defmodule Pubsubtest.GameManager do
   defp game_exists?(_, _), do: false
 
   defp module_for_type(:tic_tac_toe), do: TicTacToe.Game
+
+  defp module_for_type(:cartographers), do: Cartographers.Game
 end

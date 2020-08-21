@@ -1,0 +1,10 @@
+<button id="start">Start</button>
+<button id="quit">Quit</button>
+
+<p>
+TODO - Cartographers
+</p>
+
+<script>window.userToken = "<%= @token %>";</script>
+<script>window.gameId = "<%= @game_id %>";</script>
+<script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/cartographers.js") %>"></script>

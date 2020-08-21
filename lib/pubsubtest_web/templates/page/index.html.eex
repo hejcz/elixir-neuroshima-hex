@@ -3,7 +3,7 @@
   <%= text_input f, :name %>
   <%= select f, :type, [
     [key: "Tic tac toe", value: "tic_tac_toe"],
-    [key: "Cartographers", value: "cartographers", disabled: true],
+    [key: "Cartographers", value: "cartographers"],
     [key: "Neuroshima Hex", value: "neuroshima_hex", disabled: true]
   ] %>
   <%= submit "Create" %>
