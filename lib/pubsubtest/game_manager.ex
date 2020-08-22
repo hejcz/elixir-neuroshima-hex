@@ -79,7 +79,8 @@ defmodule Pubsubtest.GameManager do
 
   @impl true
   def handle_call(:find_open, _from, games) do
-    {:reply, {:ok, Map.values(games.open)}, games}
+    {:reply, {:ok, games.open |> Map.values() |> Enum.filter(fn g -> Process.alive?(g.pid) end)},
+     games}
   end
 
   @impl true
