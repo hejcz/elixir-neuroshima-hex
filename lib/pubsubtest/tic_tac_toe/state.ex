@@ -25,7 +25,7 @@ defmodule TicTacToe.State do
   end
 
   def count_players(game) do
-    Enum.count(game.players)
+    Enum.count(game.players) - Enum.count(game.has_left)
   end
 
   def join(game, username) do
@@ -83,11 +83,15 @@ defmodule TicTacToe.State do
   end
 
   defp game_is_finished(state) do
-    if determine_winner(state) != nil do
+    if game_finished?(state) do
       {:error, "game has finished"}
     else
       false
     end
+  end
+
+  defp game_finished?(state) do
+    determine_winner(state) != nil or Enum.count(state.circles) + Enum.count(state.crosses) == 9
   end
 
   def draw(game = %State{started: true}, username, position) do
@@ -127,7 +131,7 @@ defmodule TicTacToe.State do
   end
 
   def quit(state, username) do
-    if determine_winner(state) != nil do
+    if game_finished?(state) do
       do_quit(state, username)
     else
       {:error, "Game already started"}
