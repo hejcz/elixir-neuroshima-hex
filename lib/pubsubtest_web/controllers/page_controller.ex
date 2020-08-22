@@ -17,8 +17,12 @@ defmodule PubsubtestWeb.PageController do
   end
 
   def new_game(conn, _params = %{"game" => %{"name" => name, "type" => type}}) do
-    new_game = Pubsubtest.GameManager.add_game(Pubsubtest.GameManager, name, String.to_atom(type))
-    handle_new_game(conn, new_game, name, type)
+    if String.length(String.trim(name)) == 0 do
+      redirect(conn, to: "/")
+    else
+      new_game = Pubsubtest.GameManager.add_game(Pubsubtest.GameManager, name, String.to_atom(type))
+      handle_new_game(conn, new_game, name, type)
+    end
   end
 
   defp handle_new_game(conn, {:error, _}, _name, _type) do
