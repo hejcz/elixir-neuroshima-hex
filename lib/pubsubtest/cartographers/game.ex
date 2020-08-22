@@ -1,5 +1,4 @@
 defmodule Cartographers.Game do
-
   use GenServer
   alias Cartographers.State
 

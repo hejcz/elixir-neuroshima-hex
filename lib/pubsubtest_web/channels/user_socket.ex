@@ -2,7 +2,9 @@ defmodule PubsubtestWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:*", PubsubtestWeb.RoomChannel
+  channel "room:tictactoe:*", PubsubtestWeb.TicTacToeChannel
+  channel "room:cartographers:*", PubsubtestWeb.CartographersChannel
+  channel "room:lobby", PubsubtestWeb.RoomChannel
 
   @impl true
   def connect(_params = %{"token" => token}, socket, _connect_info) do

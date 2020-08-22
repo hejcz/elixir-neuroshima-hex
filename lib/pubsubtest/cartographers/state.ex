@@ -58,5 +58,4 @@ defmodule Cartographers.State do
   def representation(_game) do
     %{}
   end
-
 end

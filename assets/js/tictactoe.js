@@ -7,7 +7,7 @@ socket.onError(err => { console.log(err) });
 
 socket.connect()
 
-let channel = socket.channel("room:" + window.gameId, {})
+let channel = socket.channel("room:tictactoe:" + window.gameId, {})
 
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
@@ -16,7 +16,7 @@ channel.join()
 channel.on("event_joined", msg => { console.log(msg); redrawBoard(msg.board) });
 channel.on("start", msg => console.log(msg));
 channel.on("quit", msg => console.log(msg));
-channel.on("draw", msg => redrawBoard(msg.board));
+channel.on("act", msg => redrawBoard(msg.board));
 
 document.getElementById("start").onclick = event => {
   channel.push("start");
@@ -37,7 +37,7 @@ enter.insert("rect", ":first-child")
   .attr('y', (_, i) => 33 * y(i))
   .attr('width', 33)
   .attr('height', 33)
-  .on('click', (d, i) => channel.push("draw", { "position": i + 1 }));
+  .on('click', (d, i) => channel.push("act", { "name": "draw", "position": i + 1 }));
 enter.append("g");
 
 function redrawBoard(board) {
@@ -57,8 +57,9 @@ function redrawBoard(board) {
     // preserves index (filters changes index)
     .select(function (d) { return d == 'x' ? this : null })
     .html((d, i) => `
-      <line class="${winningIndicesSet.has(i) ? "winning" : ""}" x1="${33 * (i % 3) + 11}" x2="${33 * (i % 3) + 22}" y1="${33 * y(i) + 11}" y2="${33 * y(i) + 22}"></line>
-      <line class="${winningIndicesSet.has(i) ? "winning" : ""}" x1="${33 * (i % 3) + 11}" x2="${33 * (i % 3) + 22}" y1="${33 * y(i) + 22}" y2="${33 * y(i) + 11}"></line>
+      const winningClass = winningIndicesSet.has(i) ? "winning" : "";
+      <line class="$winningClass" x1="${33 * (i % 3) + 11}" x2="${33 * (i % 3) + 22}" y1="${33 * y(i) + 11}" y2="${33 * y(i) + 22}"></line>
+      <line class="$winningClass" x1="${33 * (i % 3) + 11}" x2="${33 * (i % 3) + 22}" y1="${33 * y(i) + 22}" y2="${33 * y(i) + 11}"></line>
     `);
 
   d3.select("#tic-tac-toe-svg")
@@ -67,7 +68,8 @@ function redrawBoard(board) {
     // preserves index (filters changes index)
     .select(function (d) { return d == 'o' ? this : null })
     .html((d, i) => `
-        <circle class="${winningIndicesSet.has(i) ? "winning" : ""}" cx="${33 * (i % 3) + 15}" cy="${33 * y(i) + 15}" r="${Math.sqrt(2) * 33 / 6}"></circle>
+        const winningClass = winningIndicesSet.has(i) ? "winning" : "";
+        <circle class="$winningClass" cx="${33 * (i % 3) + 15}" cy="${33 * y(i) + 15}" r="${Math.sqrt(2) * 33 / 6}"></circle>
     `);
 }
 
